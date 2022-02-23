@@ -1,0 +1,114 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jasmine": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-console": "off",
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "semi": 0,
+    "yoda": [
+      "error",
+      "never"
+    ],
+    "for-direction": "error",
+    "no-template-curly-in-string": "error",
+    "no-sparse-arrays": "error",
+    "array-callback-return": "error",
+    "class-methods-use-this": "error",
+    "curly": "error",
+    "default-case": "error",
+    "eqeqeq": "error",
+    "no-alert": "error",
+    "no-empty-function": "error",
+    "no-extra-bind": "error",
+    "no-multi-spaces": "error",
+    "no-multi-str": "error",
+    "no-new-func": "error",
+    "no-new-wrappers": "error",
+    "no-proto": "error",
+    "no-return-assign": "error",
+    "no-unmodified-loop-condition": "error",
+    "no-useless-concat": "error",
+    "require-await": "error",
+    "no-async-promise-executor": 0,
+    "no-shadow": 0,
+    "no-undefined": "error",
+    "no-use-before-define": 0,
+    "global-require": "error",
+    "handle-callback-err": "error",
+    "no-mixed-requires": [
+      "error",
+      {
+        "grouping": false,
+        "allowCall": true
+      }
+    ],
+    "array-bracket-newline": 0,
+    "camelcase": 0,
+    "comma-style": [
+      "error",
+      "last"
+    ],
+    "no-useless-catch": 0,
+    "arrow-parens": 0,
+    "no-confusing-arrow": [
+      "error",
+      {
+        "allowParens": true
+      }
+    ],
+    "no-useless-rename": "error",
+    "no-var": "error",
+    "prefer-spread": "error",
+    "prefer-template": "error",
+    "template-curly-spacing": [
+      "error",
+      "never"
+    ],
+    "wrap-regex": "error",
+    "template-tag-spacing": [
+      "error",
+      "always"
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxBOF": 0,
+        "maxEOF": 1
+      }
+    ]
+  }
+}

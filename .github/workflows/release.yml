@@ -1,0 +1,87 @@
+name: DEPLOY SNG API
+
+on:
+  push:
+    branches:
+      - release-test
+      - release-stage
+      - release-prod
+      - release-prod-hotfix
+
+jobs:
+  deploy-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variables
+        uses: allenevans/set-env@v1.0.0
+        with:
+          SENTRY_ORG: sudofy
+          SENTRY_LOG_LEVEL: debug
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          AWS_ACCESS_KEY_ID: AKIA4SUTOYRGBDIXKLWQ
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-1
+          S3_BUCKET: elasticbeanstalk-eu-west-1-864671417420
+          APPLICATION_NAME: ScanNGet-API
+          SUDOFY_SSS_API_TOKEN: ${{ secrets.SUDOFY_SSS_API_TOKEN }}
+          JIRA_PROJECT: SNG
+          JIRA_VERSION_SUFFIX: "-api"
+
+      - name: Install Sentry CLI
+        run: curl -sL https://sentry.io/get-cli/ | bash
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install Boto3
+        run: pip install boto3==1.3.0
+
+      - name: Install Nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install global npm packages
+        run: npm i -g replace
+
+      - name: Replace Sentry Release
+        run: replace 'sng-unreleased-api' "$SENTRY_RELEASE" main.js
+
+      - name: Remove package-lock.json
+        run: rm -f package-lock.json
+
+      - name: Generate deployment zip package
+        run: zip -r /tmp/api.zip .
+
+      - name: Remove package.json
+        run: rm -f package.json
+
+      - name: Install npm packages
+        run: npm i @actions/core axios git-last-commit --no-optional
+
+      - name: Set custom environment variables
+        run: node .github/scripts/setupEnv.js
+
+      - name: create release in Sentry
+        run: sentry-cli releases new -p sng-api $SENTRY_RELEASE
+
+      - name: Push commits to Sentry
+        run: sentry-cli releases set-commits --auto $SENTRY_RELEASE
+
+      - name: Push code on AWS Elasticbeanstalk
+        run: python .github/scripts/beanstalk_api_deploy.py
+
+      - name: Deploy release to Sentry
+        run: sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
+
+      - name: Deploy release to jira
+        run: node .github/scripts/releaseVersionOnJira.js
+
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took # selectable (default: repo,message)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # optional
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.

@@ -1,0 +1,16 @@
+module.exports = {
+  SUCCESS_CREATE_CLIENT: 'Successfully created client',
+  SUCCESS_ADD_CLIENT_USER: 'Successfully added client user',
+  SUCCESS_REMOVE_CLIENT_USER: 'Successfully removed client user',
+  SUCCESS_DEACTIVATE_CLIENT: 'Successfully deactivated client',
+  SUCCESS_ACTIVATE_CLIENT: 'Successfully activated client',
+  SUCCESS_UPDATE_CLIENT_DETAILS: 'Successfully updated client details',
+  SUCCESS_GET_ALL_CLIENTS: 'Successfully get all client',
+  ERROR_CREATE_CLIENT: 'Something went wrong while creating client',
+  ERROR_ADD_CLIENT_USER: 'Something went wrong while adding client user',
+  ERROR_REMOVE_CLIENT_USER: 'Something went wrong while removing client user',
+  ERROR_DEACTIVATE_CLIENT: 'Something went wrong while deactivating client',
+  ERROR_ACTIVATE_CLIENT: 'Something went wrong while activating client',
+  ERROR_UPDATE_CLIENT_DETAILS: 'Something went wrong while updating client details',
+  ERROR_GET_ALL_CLIENTS: 'Something went wrong while getting all clients',
+};

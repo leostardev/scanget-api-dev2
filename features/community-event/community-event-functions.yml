@@ -1,0 +1,111 @@
+basePath: community-event
+functions:
+  addCommunityEvent:
+    handler: community-event-handler.addCommunityEvent
+    events:
+      - http:
+          method: post
+          path: ""
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  updateCommunityEvent:
+    handler: community-event-handler.updateCommunityEvent
+    events:
+      - http:
+          method: put
+          path: "{communityEventId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  deleteCommunityEvent:
+    handler: community-event-handler.deleteCommunityEvent
+    events:
+      - http:
+          method: delete
+          path: "{communityEventId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  getAllCommunityEvents:
+    handler: community-event-handler.getAllCommunityEvents
+    events:
+      - http:
+          method: get
+          path: ""
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  getCommunityEventsByCommunityId:
+    handler: community-event-handler.getCommunityEventsByCommunityId
+    events:
+      - http:
+          method: get
+          path: "community/{communityId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  approveCommunityEvents:
+    handler: community-event-handler.approveCommunityEvents
+    events:
+      - http:
+          method: get
+          path: "approve/{communityEventId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  activateCommunityEvents:
+    handler: community-event-handler.activateCommunityEvents
+    events:
+      - http:
+          method: get
+          path: "activate/{communityEventId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  deactivateCommunityEvents:
+    handler: community-event-handler.deactivateCommunityEvents
+    events:
+      - http:
+          method: get
+          path: "deactivate/{communityEventId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  addUserInterestInCommunityEvent:
+    handler: community-event-handler.addUserInterestInCommunityEvent
+    events:
+      - http:
+          method: get
+          path: "user/{userId}/{communityEventId}/add"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  removeUserInterestInCommunityEvent:
+    handler: community-event-handler.removeUserInterestInCommunityEvent
+    events:
+      - http:
+          method: get
+          path: "user/{userId}/{communityEventId}/remove"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}

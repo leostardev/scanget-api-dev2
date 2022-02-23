@@ -1,0 +1,56 @@
+basePath: donation
+functions:
+  addDonation:
+    handler: donation-handler.addDonation
+    events:
+      - http:
+          method: post
+          path: ""
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  updateDonation:
+    handler: donation-handler.updateDonation
+    events:
+      - http:
+          method: put
+          path: "{donationId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  deleteDonation:
+    handler: donation-handler.deleteDonation
+    events:
+      - http:
+          method: delete
+          path: "{donationId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  getAllDonations:
+    handler: donation-handler.getAllDonations
+    events:
+      - http:
+          method: get
+          path: ""
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  deactivateDonation:
+    handler: donation-handler.deactivateDonation
+    events:
+      - http:
+          method: get
+          path: "deactivate/{donationId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}

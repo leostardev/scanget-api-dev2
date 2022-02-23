@@ -1,0 +1,67 @@
+basePath: community-value
+functions:
+  addCommunityValue:
+    handler: community-value-handler.addCommunityValue
+    events:
+      - http:
+          method: post
+          path: ""
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  updateCommunityValue:
+    handler: community-value-handler.updateCommunityValue
+    events:
+      - http:
+          method: put
+          path: "{communityValueId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  deleteCommunityValue:
+    handler: community-value-handler.deleteCommunityValue
+    events:
+      - http:
+          method: delete
+          path: "{communityValueId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  getAllCommunityValues:
+    handler: community-value-handler.getAllCommunityValues
+    events:
+      - http:
+          method: get
+          path: ""
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  getCommunityValueByCommunityId:
+    handler: community-value-handler.getCommunityValueByCommunityId
+    events:
+      - http:
+          method: get
+          path: "community/{communityId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}
+
+  approveCommunityValues:
+    handler: community-value-handler.approveCommunityValues
+    events:
+      - http:
+          method: get
+          path: "approve/{communityValueId}"
+          cors: true
+          authorizer:
+            name: "authorizer"
+            arn: ${self:custom.COGNITO_POOL_ARN}

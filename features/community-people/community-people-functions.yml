@@ -1,0 +1,67 @@
+basePath: community-people
+functions:
+  addCommunityPeople:
+    handler: community-people-handler.addCommunityPeople
+    events:
+      - http:
+         method: post
+         path: ''
+         cors: true
+         authorizer:
+           name: "authorizer"
+           arn: ${self:custom.COGNITO_POOL_ARN}
+
+  updateCommunityPeople:
+    handler: community-people-handler.updateCommunityPeople
+    events:
+      - http:
+         method: put
+         path: '{communityPeopleId}'
+         cors: true
+         authorizer:
+           name: "authorizer"
+           arn: ${self:custom.COGNITO_POOL_ARN}
+
+  deleteCommunityPeople:
+    handler: community-people-handler.deleteCommunityPeople
+    events:
+      - http:
+         method: delete
+         path: '{communityPeopleId}'
+         cors: true
+         authorizer:
+           name: "authorizer"
+           arn: ${self:custom.COGNITO_POOL_ARN}
+
+  getAllCommunityPeople:
+    handler: community-people-handler.getAllCommunityPeople
+    events:
+      - http:
+         method: get
+         path: ''
+         cors: true
+         authorizer:
+           name: "authorizer"
+           arn: ${self:custom.COGNITO_POOL_ARN}
+
+  getCommunityPeopleByCommunityId:
+    handler: community-people-handler.getCommunityPeopleByCommunityId
+    events:
+      - http:
+         method: get
+         path: 'community/{communityId}'
+         cors: true
+         authorizer:
+           name: "authorizer"
+           arn: ${self:custom.COGNITO_POOL_ARN}
+    
+  approveCommunityPeoples:
+    handler: community-people-handler.approveCommunityPeoples
+    events:
+      - http:
+         method: get
+         path: 'approve/{communityPeopleId}'
+         cors: true
+         authorizer:
+           name: "authorizer"
+           arn: ${self:custom.COGNITO_POOL_ARN}

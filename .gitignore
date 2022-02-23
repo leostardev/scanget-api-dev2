@@ -1,0 +1,20 @@
+
+#node_modules
+node_modules
+
+#serverless webpack build
+.webpack
+
+#apidoc
+apidoc
+
+#credentials file
+cred.yml
+
+.DS_Store
+
+prod-env
+stage-env
+test-env
+.env
+ngrok

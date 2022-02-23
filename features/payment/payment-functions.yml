@@ -1,0 +1,9 @@
+basePath: payment
+functions:
+  getAllPayments:
+    handler: payment-handler.getAllPayments
+    events:
+      - http:
+         method: get
+         path: ''
+         cors: true

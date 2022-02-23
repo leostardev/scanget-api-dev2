@@ -1,0 +1,58 @@
+image: node:8.10.0
+
+pipelines:
+  branches:
+    test:
+      - step:
+          name: Deploy to test
+          deployment: test
+          script:
+            - apt-get -y update || true
+            - apt-get -y install python-dev
+            - apt-get -y install python-pip
+            - apt-get install -y zip
+            - pip install boto3==1.3.0
+            - npm i -g replace
+            - rm -rf apidoc-server
+            - rm -rf node_modules
+            - replace 'scannget-api' "SCANNGET-$BITBUCKET_BUILD_NUMBER" bin/www.js
+            - zip -r /tmp/api.zip .
+            - export APPLICATION_ENVIRONMENT=scannget-test
+            - python deploy/beanstalk_api_deploy.py
+
+    stage:
+      - step:
+          name: Deploy to Stage
+          deployment: staging
+          script:
+            - apt-get -y update || true
+            - apt-get -y install python-dev
+            - apt-get -y install python-pip
+            - apt-get install -y zip
+            - pip install boto3==1.3.0
+            - npm i -g replace
+            - rm -rf apidoc-server
+            - rm -rf node_modules
+            - replace 'scannget-api' "SCANNGET-$BITBUCKET_BUILD_NUMBER" bin/www.js
+            - zip -r /tmp/api.zip .
+            - export APPLICATION_ENVIRONMENT=scannget-stage
+            - python deploy/beanstalk_api_deploy.py
+
+    master:
+      - step:
+          name: Deploy to Prod
+          deployment: production
+          script:
+            - apt-get -y update || true
+            - apt-get -y install python-dev
+            - apt-get -y install python-pip
+            - apt-get install -y zip
+            - pip install boto3==1.3.0
+            - npm i -g replace
+            - rm -rf apidoc-server
+            - rm -rf node_modules
+            - replace 'scannget-api' "SCANNGET-$BITBUCKET_BUILD_NUMBER" bin/www.js
+            - zip -r /tmp/api.zip .
+            - export APPLICATION_ENVIRONMENT=scannget-prod
+            - python deploy/beanstalk_api_deploy.py
+    

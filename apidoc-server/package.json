@@ -1,0 +1,13 @@
+{
+  "name": "apidoc-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./api-server",
+    "debug": "nodemon ./api-server"
+  },
+  "dependencies": {
+    "express": "~4.16.2",
+    "http-auth": "^3.2.3"
+  }
+}
